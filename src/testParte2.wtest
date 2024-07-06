@@ -1,0 +1,30 @@
+import emociones.*
+import individuos.*
+describe "Test Etapa 2" {
+
+	const furia1= new Furia(intensidad=75, color="rojo", palabrotas=["demonios","changos"])	
+	const alegria2 = new Alegria(intensidad=80, color="esmeralda", eventosPositivos=24)
+	const tristeza2 = new Tristeza(intensidad=60, color="marino" , melancolica=true, llorona=false)
+	const raily = new Individuo(edad=11, emociones=[furia1,alegria2,tristeza2])
+	
+	test "Raily esta por explotar emocionalemnte" {
+		assert.that(raily.porExplotarEmocionalmente())
+	}
+
+	test "Delta emocional de Raily" {
+		assert.equals(20, raily.deltaEmocional())
+	}
+	
+	test "Mapa crómatico de Raily" {
+		const colores = raily.mapaCromatico()
+		assert.that(colores.contains("rojo"))
+		assert.that(colores.contains("esmeralda"))
+		assert.that(colores.contains("marino"))
+	}
+	
+	test "Energia emocional de Raily" {
+		assert.equals(135, raily.energiaEmocional())
+	}
+	
+}
+	

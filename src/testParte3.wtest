@@ -1,0 +1,52 @@
+import emociones.*
+import individuos.*
+import eventos.*
+
+describe "Test Etapa 3 - Eventos" {
+	const evento1 = new Evento(nombre="11DeSeptiembre", colorEmocional="rojo", impacto=10)
+	const evento2 = new Evento(nombre="Alunizaje", colorEmocional="esmeralda", impacto=10)
+	
+	const furia1= new Furia(intensidad=75, color="rojo", palabrotas=["demonios","changos"])	
+	const alegria2 = new Alegria(intensidad=80, color="esmeralda", eventosPositivos=24)
+	const tristeza2 = new Tristeza(intensidad=60, color="marino" , melancolica=true, llorona=false)
+	const raily = new Individuo(edad=11, emociones=[furia1,alegria2,tristeza2])
+	
+	const furia2= new Furia(intensidad=78, color="naranja",palabrotas=["changos","wtf"])
+	const alegria1 = new Alegria(intensidad=70, color="verde", eventosPositivos=25)
+	const juan = new Individuo(edad=25, emociones=[furia2,alegria1])
+	
+	
+	method initialize() {
+		evento1.transferirA(raily)
+		evento2.transferirA(raily)
+		evento1.transferirA(juan)
+		evento2.transferirA(juan)
+	}
+
+	test "evento 1 ya transeferido a raily" {
+		assert.throwsExceptionWithMessage(
+			"El evento ya fue transferido al individuo",
+			{evento1.transferirA(raily)}
+		)
+	}
+	
+	test "evento 2 ya transeferido a juan" {
+			assert.throwsExceptionWithMessage(
+			"El evento ya fue transferido al individuo",
+			{evento2.transferirA(juan)}
+		)	
+	}  
+	
+	test "Raily tiene 2 eventos registrado" {
+			assert.equals(2, raily.eventos().size())	
+	} 
+	
+	test "rayly procesar Eventos" {
+			raily.procesarEventos()
+			assert.equals(0, raily.eventos().size())
+			assert.equals(90, furia1.intensidad())
+			assert.equals(90, alegria2.intensidad())
+			assert.equals(25, alegria2.eventosPositivos())	
+	} 
+
+}

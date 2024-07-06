@@ -1,0 +1,53 @@
+import emociones.*
+import individuos.*
+
+describe "Test Etapa 1" {
+
+	const furia1= new Furia(intensidad=75, color="rojo", palabrotas=["demonios","changos"])	
+	const furia2= new Furia(intensidad=78, color="naranja",palabrotas=["changos","wtf"])
+	const alegria1 = new Alegria(intensidad=70, color="verde", eventosPositivos=25)
+	const alegria2 = new Alegria(intensidad=80, color="esmeralda", eventosPositivos=24)
+	const tristeza1 = new Tristeza(intensidad=60, color="azul" , melancolica=true, llorona=true)
+	const tristeza2 = new Tristeza(intensidad=60, color="marino" , melancolica=true, llorona=false)
+	
+	test "puede ser liberada" {
+		assert.that(furia1.puedeSerLiberada())
+		assert.notThat(furia2.puedeSerLiberada())
+		assert.notThat(alegria1.puedeSerLiberada())
+		assert.that(alegria2.puedeSerLiberada())
+		assert.that(tristeza1.puedeSerLiberada())
+		assert.that(tristeza2.puedeSerLiberada())
+	}
+	
+	test "expresar fruria1" {
+		furia1.expresar()
+		assert.equals(67 , furia1.intensidad() )
+	}
+	
+	test "expresar fruria2" {
+		furia2.expresar()
+		assert.equals(78  , furia2.intensidad() )
+	}
+
+	test "expresar alegria1" {
+		alegria1.expresar()
+		assert.equals(70 , alegria1.intensidad() )
+	}
+	
+	test "expresar alegria2" {
+		alegria2.expresar()
+		assert.equals(80 * (1-24/100) , alegria2.intensidad() )
+	}
+	
+	test "expresar tristeza1" {
+		tristeza1.expresar()
+		assert.equals(60 - 10 , tristeza1.intensidad() )
+	}
+	
+	test "expresar tristeza2" {
+		tristeza2.expresar()
+		assert.equals(60 - 5 , tristeza2.intensidad() )
+	}
+	
+	
+}
